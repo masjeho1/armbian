@@ -56,7 +56,7 @@ on:
         type: choice
         options:
           - 5.9.14
-          - 5.5.16
+          - 5.9.16
           - 5.4.225_5.10.160_5.15.85
           - 5.4.225_5.10.160
           - 5.10.160_5.15.85
@@ -73,7 +73,7 @@ on:
       kernel_repo:
         description: "Set the kernel repository."
         required: false
-        default: "https://github.com/ophub/kernel/tree/main/pub"
+        default: "https://github.com/masjeho/kernel/tree/main/pub"
       armbian_size:
         description: "Set armbian rootfs size(Unit: MiB)."
         required: false
@@ -158,7 +158,7 @@ jobs:
           token: ${{ secrets.GH_TOKEN }}
 
       - name: Rebuild Armbian
-        uses: ophub/amlogic-s9xxx-armbian@main
+        uses: masjeho1/amlogic-s9xxx-armbian@main
         if: ${{ steps.compile.outputs.status }} == 'success' && !cancelled()
         with:
           build_target: armbian
@@ -173,7 +173,7 @@ jobs:
           gh_token: ${{ secrets.GH_TOKEN }}
 
       - name: Upload Rebuild image to Release
-        uses: ncipollo/release-action@main
+        uses: masjeho1/release-action@main
         if: ${{ env.PACKAGED_STATUS }} == 'success' && !cancelled()
         with:
           tag: ${{ steps.compile.outputs.build_tag }}
